@@ -5,24 +5,35 @@ import { wall } from "../view/muro.js"
 
 export function router (){
 
+
     const root = document.getElementById('root');
-       root.innerHTML = ''
+       
+
+       
+   
 
       if (window.location.hash === '#/bienvenida'){
+        root.innerHTML = ''
         root.appendChild(bienvenida());
     }  
-
-    if (window.location.hash === '#/login'){
+    window.addEventListener('hashchange', () => {
+        
+     if (window.location.hash === '#/login'){
+        root.innerHTML = ''
         root.appendChild(logIn());
     }
 
-    if (window.location.hash === '#/register'){
+    else if (window.location.hash === '#/register'){
+        root.innerHTML = ''
         root.appendChild(register());
     }
 
-    if (window.location.hash === '#/wall'){
+    else if (window.location.hash === '#/muro'){
+        root.innerHTML = ''
         root.appendChild(wall());
     }
- 
     
-}; 
+
+})
+
+}

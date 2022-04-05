@@ -3,7 +3,7 @@ import { app, db, auth } from "../lib/firebase.js";
 import { collection, addDoc, Timestamp, query, orderBy, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"
 
 export const wall = () =>{
-
+  //history.pushState(null, muro, '/muro' )
 window.location.hash = '#/wall'
 
 //VISTA MURO
@@ -30,11 +30,6 @@ window.location.hash = '#/wall'
    headerwall.appendChild(logo)
    headerwall.appendChild(botonLogOut)
 
-   //FORM
-
-   /* let formWall = document.createElement("form")
-   formWall.setAttribute("class", "post")
-   headerwall.appendChild(formWall) */
 
    let sectionPostArea = document.createElement("div");
    sectionPostArea.setAttribute("class", "sectionPostArea");
@@ -54,12 +49,14 @@ window.location.hash = '#/wall'
    botonPosteo.innerHTML = "Postear"
 
    let botonposteo = sectionPostArea.querySelector('#botonposteo'); //evento del boton
-   console.log(botonposteo)
+   
     botonposteo.addEventListener('click', () => {
       let inputpost = sectionPostArea.querySelector(".postinput")
       let text = inputpost.value
     console.log(text)
-     createPost(db, text);
+     createPost(db, text)
+     location.reload()
+     //location.reload();
     }); 
 
     // FUNCIÓN CERRAR SESION
@@ -76,7 +73,7 @@ window.location.hash = '#/wall'
   }
 
   let botonSalir = containerwall.querySelector('#botonLogOut'); //boton logout
-   console.log(botonSalir)
+   
     botonSalir.addEventListener('click', () => {
      logOut();
     }); 
@@ -88,7 +85,7 @@ const createPost = async (db, text) => {
 
   let userName;
 
-  if (auth.currentUser.displayName == null) { // displayname
+  if (auth.currentUser.displayName == null) { // crea nombre usuaria
     let separateEmail = auth.currentUser.email.split('@');
     userName = separateEmail[0];
     console.log(userName)
@@ -147,53 +144,61 @@ const showPost = async () => {
 
     pUser.innerHTML = documento.data().name;
     pPost.innerHTML = documento.data().text;
-
+   
+    let userEditDelete = document.createElement("div");
+    userEditDelete.setAttribute("class", "edit-delete"); 
+ 
+    let botonDelete = document.createElement("button")
+   botonDelete.setAttribute('type', 'button')
+   botonDelete.setAttribute('class', 'botonDelete')
+   botonDelete.setAttribute('id', 'botonDelete')
+   botonDelete.innerHTML = 'borrar'
 
   containerwall.appendChild(postContainer);
   postContainer.appendChild(divPost);
   divPost.appendChild(divNombre);
   divNombre.appendChild(pUser);
   divPost.appendChild(pPost); 
-  
-  // FUNCION PARA BORRAR
-  const deletePost = async (id) => {
-    await deleteDoc(doc(db, 'post', documento.id));
-    console.log(await deleteDoc);
-  };
-
-  if (documento.data().userid === auth.currentUser.uid) {
-    let userEditDelete = document.createElement("div");
-    userEditDelete.setAttribute("class", "edit-delete");
-
-   let botonDelete = document.createElement("button")
-   botonDelete.setAttribute('type', 'button')
-   botonDelete.setAttribute('class', 'botonDelete')
-   botonDelete.setAttribute('id', 'botonDelete')
-
-   let imgDelete = document.createElement("img")
-   imgDelete.setAttribute("src", "https://www.iconpacks.net/icons/1/free-trash-icon-347-thumb.png")
-   imgDelete.setAttribute("class", "imgDelete")
-   botonDelete.appendChild(imgDelete)
-
-   divPost.appendChild(userEditDelete)
+  divPost.appendChild(userEditDelete)
    userEditDelete.appendChild(botonDelete)
 
-   let botonBorrar = containerwall.querySelector('#botonDelete'); 
+  
+  
+ 
+
+
+  // FUNCION PARA BORRAR
+    const deletePost = async (id) => {
+    await deleteDoc(doc(db, 'post', documento.id));
+    console.log('hola');
+    }
+
+  if (documento.data().userid === auth.currentUser.uid) {
+   
+
+   /* let imgDelete = document.createElement("img")
+   imgDelete.setAttribute("src", "https://www.iconpacks.net/icons/1/free-trash-icon-347-thumb.png")
+   imgDelete.setAttribute("class", "imgDelete")
+   botonDelete.appendChild(imgDelete)  */
+
+   
+
+    let botonBorrar = divPost.querySelector('#botonDelete'); 
          botonBorrar.addEventListener('click', () => {
-         const confirmDelete = confirm('¿Estás seguro de eliminar esta publicación?');
+         const confirmDelete = confirm('¿Estás segura de eliminar esta publicación?');
           if (confirmDelete == true) {
-            deletePost(post);
-            location.reload(post)
+            deletePost('post');
+            
           }
 
-  })
-}
+  })  
+} 
+    
 })
 
+}
 let valuePost = postInput.value;
-  showPost(db, valuePost);
+showPost(db, valuePost); 
 
-
-return containerwall;
-
-}}
+return containerwall
+}

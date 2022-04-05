@@ -3,7 +3,7 @@ import { logIn } from "./login.js";
 import { passregister } from "../lib/firebase.js";
 
 export const register = () => {
-
+//history.pushState(null, register, '/register')
   window.location.hash = '#/register';
 
   const divregister = document.createElement("div");
@@ -49,10 +49,12 @@ export const register = () => {
   passwordInput.setAttribute("placeholder", "contraseña")
   passwordInput.setAttribute("required", "")
   formSignUp.appendChild(passwordInput)
+
+
   //error contraseña
-  // let passwordError = document.createElement("span");
-  // passwordError.setAttribute("class", "errorcontrasena");
-  // formSignUp.appendChild(passwordError);
+  let passError = document.createElement("span");
+   passError.setAttribute("class", "errorpass");
+   formSignUp.appendChild(passError);
 
   let userName = document.createElement("input");
   userName.setAttribute("type", "text");

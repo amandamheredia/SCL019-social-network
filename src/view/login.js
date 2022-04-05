@@ -2,6 +2,7 @@ import { passlogin } from "../lib/firebase.js";
 import { wall } from "./muro.js";
 
 export const logIn = () => {
+ // history.pushState(null, login, '/login')
 
  window.location.hash = '#/login'
 

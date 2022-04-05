@@ -1,5 +1,5 @@
 import { initializeApp} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js"
-import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"
 
 
@@ -76,6 +76,7 @@ export const passregister = () => {
 createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
+    
     const user = userCredential.user;
     console.log(user)
   })
@@ -85,8 +86,7 @@ createUserWithEmailAndPassword(auth, email, password)
     
   })
 
- 
-
+  
   .catch((error) => {
      const errorCode = error.code;
      const errorMessage = error.message;

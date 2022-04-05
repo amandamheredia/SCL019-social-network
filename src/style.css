@@ -318,13 +318,12 @@ color: #FEFEE3;
       }
 
       .botonDelete {
-        background-color: none;
+        background-color: transparent;
         border: none;
+        border-radius: 4px;
       }
 
-      .imgDelete {
-        size: 10px;
-      }
+      
 
 
     

@@ -2,6 +2,7 @@ import { logIn } from "../view/login.js"
 import { register } from "../view/register.js";
 
 export const bienvenida = () => { 
+ // history.pushState(null, bienvenida, '/bienvenida')
 
 window.location.hash = '#/bienvenida'
 
